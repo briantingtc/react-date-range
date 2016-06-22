@@ -42,12 +42,12 @@ class DateRange extends Component {
   }
 
   setRange(range, source) {
-    const { onChange } = this.props
+    const { onChange, pickSingleDate } = this.props
     range = this.orderRange(range);
 
     this.setState({ range });
 
-    if (singleDate) {
+    if (pickSingleDate) {
       onChange && onChange(range.startDate, source)
     } else {
       onChange && onChange(range, source);
@@ -55,7 +55,7 @@ class DateRange extends Component {
   }
 
   handleSelect(date, source) {
-    if (this.props.singleDate) {
+    if (this.props.pickSingleDate) {
       return this.setRange({
         startDate: date,
         endDate: date,
@@ -165,7 +165,7 @@ class DateRange extends Component {
 }
 
 DateRange.defaultProps = {
-  singleDate      : false,
+  pickSingleDate  : false,
   linkedCalendars : false,
   theme           : {},
   format          : 'DD/MM/YYYY',
@@ -175,7 +175,7 @@ DateRange.defaultProps = {
 }
 
 DateRange.propTypes = {
-  singleDate      : PropTypes.bool,
+  pickSingleDate  : PropTypes.bool,
   format          : PropTypes.string,
   firstDayOfWeek  : PropTypes.number,
   calendars       : PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
