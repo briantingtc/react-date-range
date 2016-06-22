@@ -10,10 +10,10 @@ class DateRange extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const { format, linkedCalendars, theme, singleDate } = props;
+    const { format, linkedCalendars, theme, pickSingleDate } = props;
 
     const startDate = parseInput(props.startDate, format);
-    const endDate   = singleDate ? parseInput(props.startDate, format) : parseInput(props.endDate, format);
+    const endDate   = pickSingleDate ? parseInput(props.startDate, format) : parseInput(props.endDate, format);
 
     this.state = {
       range     : { startDate, endDate },
