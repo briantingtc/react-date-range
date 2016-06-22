@@ -118,7 +118,7 @@ class DateRange extends Component {
   }
 
   render() {
-    const { ranges, format, linkedCalendars, style, calendars, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses } = this.props;
+    const { ranges, format, linkedCalendars, style, calendars, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, pickSingleDate } = this.props;
     const { range, link } = this.state;
     const { styles } = this;
 
@@ -144,8 +144,10 @@ class DateRange extends Component {
               <Calendar
                 key={i}
                 offset={ -i }
+                firstIndex={ calendars - 1 }
                 link={ linkedCalendars && link }
                 linkCB={ this.handleLinkChange.bind(this) }
+                pickSingleDate={ pickSingleDate }
                 range={ range }
                 format={ format }
                 firstDayOfWeek={ firstDayOfWeek }

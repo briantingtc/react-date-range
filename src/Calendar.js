@@ -35,10 +35,11 @@ class Calendar extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const { format, range, theme, offset, firstDayOfWeek } = props;
+    const { format, range, theme, offset, firstDayOfWeek, index } = props;
     const date = parseInput(props.date, format)
     const state = {
       date,
+      index: index,
       inputtedDate: props.date ? true : false,
       shownDate : (range && range['endDate'] || date).clone().add(offset, 'months'),
       firstDayOfWeek: (firstDayOfWeek || moment.localeData().firstDayOfWeek()),
@@ -61,7 +62,7 @@ class Calendar extends Component {
   }
 
   handleSelect(newDate) {
-    const { link, onChange } = this.props;
+    const { link, onChange, offset } = this.props;
     const { date } = this.state;
 
     onChange && onChange(newDate, Calendar);
@@ -91,27 +92,32 @@ class Calendar extends Component {
     const month           = moment.months(shownDate.month());
     const year            = shownDate.year();
     const { styles }      = this;
-    const { onlyClasses } = this.props;
-
+    const { onlyClasses, firstIndex, offset, pickSingleDate } = this.props;
+    const start = -firstIndex === offset
+    const end = offset === 0
     return (
       <div style={onlyClasses ? undefined : styles['MonthAndYear']} className={classes.monthAndYearWrapper}>
-        <button
-          style={onlyClasses ? undefined : { ...styles['MonthButton'], float : 'left' }}
-          className={classes.prevButton}
-          onClick={this.changeMonth.bind(this, -1)}>
-          <i style={onlyClasses ? undefined : { ...styles['MonthArrow'], ...styles['MonthArrowPrev'] }}></i>
-        </button>
+        { start && pickSingleDate &&
+          <button
+            style={onlyClasses ? undefined : { ...styles['MonthButton'], float : 'left' }}
+            className={classes.prevButton}
+            onClick={this.changeMonth.bind(this, -1)}>
+            <i style={onlyClasses ? undefined : { ...styles['MonthArrow'], ...styles['MonthArrowPrev'] }}></i>
+          </button>
+        }
         <span>
           <span className={classes.month}>{month}</span>
           <span className={classes.monthAndYearDivider}> - </span>
           <span className={classes.year}>{year}</span>
         </span>
-        <button
-          style={onlyClasses ? undefined : { ...styles['MonthButton'], float : 'right' }}
-          className={classes.nextButton}
-          onClick={this.changeMonth.bind(this, +1)}>
-          <i style={onlyClasses ? undefined : { ...styles['MonthArrow'], ...styles['MonthArrowNext'] }}></i>
-        </button>
+        { end && pickSingleDate &&
+          <button
+            style={onlyClasses ? undefined : { ...styles['MonthButton'], float : 'right' }}
+            className={classes.nextButton}
+            onClick={this.changeMonth.bind(this, +1)}>
+            <i style={onlyClasses ? undefined : { ...styles['MonthArrow'], ...styles['MonthArrowNext'] }}></i>
+          </button>
+        }
       </div>
     )
   }
