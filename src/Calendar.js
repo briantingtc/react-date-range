@@ -36,10 +36,10 @@ class Calendar extends Component {
     super(props, context);
 
     const { format, range, theme, offset, firstDayOfWeek } = props;
-
     const date = parseInput(props.date, format)
     const state = {
       date,
+      inputtedDate: props.date ? true : false,
       shownDate : (range && range['endDate'] || date).clone().add(offset, 'months'),
       firstDayOfWeek: (firstDayOfWeek || moment.localeData().firstDayOfWeek()),
     }
@@ -55,7 +55,6 @@ class Calendar extends Component {
 
   getShownDate() {
     const { link, offset } = this.props;
-
     const shownDate = (link) ? link.clone().add(offset, 'months') : this.state.shownDate;
 
     return shownDate;
@@ -66,7 +65,6 @@ class Calendar extends Component {
     const { date } = this.state;
 
     onChange && onChange(newDate, Calendar);
-
     if (!link) {
       this.setState({ date : newDate });
     }
@@ -142,7 +140,7 @@ class Calendar extends Component {
     const { range, minDate, maxDate, format, onlyClasses } = this.props;
 
     const shownDate                = this.getShownDate();
-    const { date, firstDayOfWeek } = this.state;
+    const { date, firstDayOfWeek, inputtedDate } = this.state;
     const dateUnix                 = date.unix();
 
     const monthNumber              = shownDate.month();
@@ -181,7 +179,7 @@ class Calendar extends Component {
     const today = moment().startOf('day');
     return days.map((data, index) => {
       const { dayMoment, isPassive } = data;
-      const isSelected    = !range && (dayMoment.unix() === dateUnix);
+      const isSelected    = !range && (dayMoment.unix() === dateUnix) && shownDate;
       const isInRange     = range && checkRange(dayMoment, range);
       const isStartEdge   = range && checkStartEdge(dayMoment, range);
       const isEndEdge     = range && checkEndEdge(dayMoment, range);

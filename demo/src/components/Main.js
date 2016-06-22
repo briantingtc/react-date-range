@@ -34,7 +34,7 @@ export default class Main extends Component {
 
         <h1 className={styles['Title']}>React-date-range</h1>
 
-        <Section title='Range Picker'>
+        <Section title='SINGLE DATE Picker'>
           <div>
             <input
               type='text'
@@ -49,10 +49,7 @@ export default class Main extends Component {
           </div>
 
           <DateRange
-            startDate='10/11/2015'
-            endDate={ now => {
-              return '11/12/2015';
-            }}
+            singleDate={ true }
             onInit={ this.handleChange.bind(this, 'rangePicker') }
             onChange={ this.handleChange.bind(this, 'rangePicker') }
           />

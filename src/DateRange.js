@@ -10,10 +10,10 @@ class DateRange extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const { format, linkedCalendars, theme } = props;
+    const { format, linkedCalendars, theme, singleDate } = props;
 
     const startDate = parseInput(props.startDate, format);
-    const endDate   = parseInput(props.endDate, format);
+    const endDate   = singleDate ? parseInput(props.startDate, format) : parseInput(props.endDate, format);
 
     this.state = {
       range     : { startDate, endDate },
@@ -47,10 +47,21 @@ class DateRange extends Component {
 
     this.setState({ range });
 
-    onChange && onChange(range, source);
+    if (singleDate) {
+      onChange && onChange(range.startDate, source)
+    } else {
+      onChange && onChange(range, source);
+    }
   }
 
   handleSelect(date, source) {
+    if (this.props.singleDate) {
+      return this.setRange({
+        startDate: date,
+        endDate: date,
+      }, source)
+    }
+
     if (date.startDate && date.endDate) {
       this.step = 0;
       return this.setRange(date, source);
@@ -74,6 +85,7 @@ class DateRange extends Component {
         range['endDate'] = date;
         this.step = 0;
         break;
+
     }
 
     this.setRange(range, source);
@@ -140,7 +152,7 @@ class DateRange extends Component {
                 theme={ styles }
                 minDate={ minDate }
                 maxDate={ maxDate }
-		onlyClasses={ onlyClasses }
+		            onlyClasses={ onlyClasses }
                 classNames={ classes }
                 onChange={ this.handleSelect.bind(this) }  />
             );
@@ -153,6 +165,7 @@ class DateRange extends Component {
 }
 
 DateRange.defaultProps = {
+  singleDate      : false,
   linkedCalendars : false,
   theme           : {},
   format          : 'DD/MM/YYYY',
@@ -162,6 +175,7 @@ DateRange.defaultProps = {
 }
 
 DateRange.propTypes = {
+  singleDate      : PropTypes.bool,
   format          : PropTypes.string,
   firstDayOfWeek  : PropTypes.number,
   calendars       : PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

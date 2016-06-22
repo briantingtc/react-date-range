@@ -63,7 +63,7 @@ if (NODE_ENV === 'production') {
   }));
 } else if (NODE_ENV === 'development') {
   config.entry.main.unshift('webpack/hot/only-dev-server');
-  config.entry.main.unshift('webpack-dev-server/client?http://0.0.0.0:3000');
+  config.entry.main.unshift('webpack-dev-server/client?http://0.0.0.0:5000');
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
@@ -83,8 +83,8 @@ if (NODE_ENV === 'development') {
     }
   });
 
-  server.listen(3000, 'localhost', function(){
-    console.log('Webpack Dev Server is listening on port 3000');
+  server.listen(5000, 'localhost', function(){
+    console.log('Webpack Dev Server is listening on port 5000');
   });
 } else if (NODE_ENV === 'production') {
   compiler.run(function (err, stats) {
