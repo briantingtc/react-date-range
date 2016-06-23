@@ -61,6 +61,32 @@ export default class Main extends Component {
             onChange={ this.handleChange.bind(this, 'rangePicker') }
           />
         </Section>
+        <Section title='not SINGLE DATE Picker'>
+          <div>
+            <input
+              type='text'
+              readOnly
+              value={ rangePicker['startDate'] && rangePicker['startDate'].format(format).toString() }
+            />
+            <input
+              type='text'
+              readOnly
+              value={ rangePicker['endDate'] && rangePicker['endDate'].format(format).toString() }
+            />
+          </div>
+
+          <DateRange
+            linkedCalendars={ true }
+            calendars={ 3 }
+            theme={{
+              Calendar:{
+                width:'193px',
+              }
+            }}
+            onInit={ this.handleChange.bind(this, 'rangePicker') }
+            onChange={ this.handleChange.bind(this, 'rangePicker') }
+          />
+        </Section>
       </main>
     )
   }

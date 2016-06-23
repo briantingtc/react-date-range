@@ -95,29 +95,36 @@ class Calendar extends Component {
     const { onlyClasses, firstIndex, offset, pickSingleDate } = this.props;
     const start = -firstIndex === offset
     const end = offset === 0
+
+    let showStart, showEnd;
+
+    if(pickSingleDate) {
+      showStart = start ? {visibility: 'visible'} : {visibility: 'hidden'}
+      showEnd = end ? {visibility: 'visible'} : {visibility: 'hidden'}
+    } else {
+      showStart = {}
+      showEnd = {}
+    }
+
     return (
       <div style={onlyClasses ? undefined : styles['MonthAndYear']} className={classes.monthAndYearWrapper}>
-        { start && pickSingleDate &&
           <button
-            style={onlyClasses ? undefined : { ...styles['MonthButton'], float : 'left' }}
+            style={onlyClasses ? undefined : { ...styles['MonthButton'], ...showStart, float : 'left' }}
             className={classes.prevButton}
             onClick={this.changeMonth.bind(this, -1)}>
             <i style={onlyClasses ? undefined : { ...styles['MonthArrow'], ...styles['MonthArrowPrev'] }}></i>
           </button>
-        }
         <span>
           <span className={classes.month}>{month}</span>
           <span className={classes.monthAndYearDivider}> - </span>
           <span className={classes.year}>{year}</span>
         </span>
-        { end && pickSingleDate &&
           <button
-            style={onlyClasses ? undefined : { ...styles['MonthButton'], float : 'right' }}
+            style={onlyClasses ? undefined : { ...styles['MonthButton'], ...showEnd, float : 'right' }}
             className={classes.nextButton}
             onClick={this.changeMonth.bind(this, +1)}>
             <i style={onlyClasses ? undefined : { ...styles['MonthArrow'], ...styles['MonthArrowNext'] }}></i>
           </button>
-        }
       </div>
     )
   }
