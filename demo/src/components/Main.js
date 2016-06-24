@@ -51,11 +51,12 @@ export default class Main extends Component {
           <DateRange
             pickSingleDate={ true }
             linkedCalendars={ true }
+            selectYear={ false }
             showIndex= { 1 }
             calendars={ 3 }
             theme={{
               Calendar:{
-                width:'193px',
+                width:'221px',
               }
             }}
             onInit={ this.handleChange.bind(this, 'rangePicker') }
@@ -81,7 +82,7 @@ export default class Main extends Component {
             calendars={ 2 }
             theme={{
               Calendar:{
-                width:'193px',
+                width:'221px',
               }
             }}
             onInit={ this.handleChange.bind(this, 'rangePicker') }

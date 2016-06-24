@@ -54,6 +54,17 @@ class DateRange extends Component {
     }
   }
 
+  changeYear(e){
+    if (this.props.selectYear) {
+      this.setState({
+        range: {
+          startDate: this.state.range.startDate.isoWeekYear(e.target.value),
+          endDate: this.state.range.endDate.isoWeekYear(e.target.value),
+        }
+      })
+    }
+  }
+
   handleSelect(date, source) {
     if (this.props.pickSingleDate) {
       return this.setRange({
@@ -118,7 +129,7 @@ class DateRange extends Component {
   }
 
   render() {
-    const { ranges, format, linkedCalendars, style, calendars, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, pickSingleDate, showIndex } = this.props;
+    const { ranges, format, linkedCalendars, style, calendars, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, pickSingleDate, showIndex, selectYear } = this.props;
     const { range, link } = this.state;
     const { styles } = this;
 
@@ -144,10 +155,12 @@ class DateRange extends Component {
               key={i}
               index={i}
               offset={ offset }
+              changeYear={ this.changeYear.bind(this) }
               link={ linkedCalendars && link }
               calendarEnd = {calendars - 1}
               linkCB={ this.handleLinkChange.bind(this) }
               pickSingleDate={ pickSingleDate }
+              selectYear={ selectYear }
               range={ range }
               format={ format }
               firstDayOfWeek={ firstDayOfWeek }
@@ -168,6 +181,7 @@ class DateRange extends Component {
 DateRange.defaultProps = {
   pickSingleDate  : false,
   linkedCalendars : false,
+  selectYear      : false,
   theme           : {},
   format          : 'DD/MM/YYYY',
   calendars       : 2,
@@ -178,6 +192,7 @@ DateRange.defaultProps = {
 
 DateRange.propTypes = {
   pickSingleDate  : PropTypes.bool,
+  selectYear      : PropTypes.bool,
   showIndex       : PropTypes.number,
   format          : PropTypes.string,
   firstDayOfWeek  : PropTypes.number,

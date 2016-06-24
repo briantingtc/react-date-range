@@ -94,7 +94,7 @@ class Calendar extends Component {
     const month           = moment.months(shownDate.month());
     const year            = shownDate.year();
     const { styles }      = this;
-    const { onlyClasses, offset, index, calendarEnd, pickSingleDate } = this.props;
+    const { onlyClasses, offset, index, calendarEnd, pickSingleDate, selectYear, changeYear } = this.props;
     const start = index === 0
     const end = index === calendarEnd
 
@@ -108,6 +108,14 @@ class Calendar extends Component {
       showEnd = {}
     }
 
+    const generateYearRange = ()=>{
+      const yearOptions = []
+      for (var i = Number(year) - 10; i <= (year + 10); i++) {
+        yearOptions.push(<option value={i}>{i}</option>)
+      }
+      return yearOptions
+    }
+
     return (
       <div style={onlyClasses ? undefined : styles['MonthAndYear']} className={classes.monthAndYearWrapper}>
           <button
@@ -119,7 +127,11 @@ class Calendar extends Component {
         <span>
           <span className={classes.month}>{month}</span>
           <span className={classes.monthAndYearDivider}> - </span>
-          <span className={classes.year}>{year}</span>
+          <span className={classes.year}>
+            {
+              (start && pickSingleDate && selectYear) ? <select onChange={changeYear} value={year}>{generateYearRange()}</select> : year
+            }
+          </span>
         </span>
           <button
             style={onlyClasses ? undefined : { ...styles['MonthButton'], ...showEnd, float : 'right' }}
