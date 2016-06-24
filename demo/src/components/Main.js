@@ -51,6 +51,7 @@ export default class Main extends Component {
           <DateRange
             pickSingleDate={ true }
             linkedCalendars={ true }
+            showIndex= { 1 }
             calendars={ 3 }
             theme={{
               Calendar:{

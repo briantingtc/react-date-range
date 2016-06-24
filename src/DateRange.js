@@ -118,7 +118,7 @@ class DateRange extends Component {
   }
 
   render() {
-    const { ranges, format, linkedCalendars, style, calendars, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, pickSingleDate } = this.props;
+    const { ranges, format, linkedCalendars, style, calendars, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, pickSingleDate, showIndex } = this.props;
     const { range, link } = this.state;
     const { styles } = this;
 
@@ -138,10 +138,12 @@ class DateRange extends Component {
         )}
 
         {()=>{
-          const _calendars = [...Array(calendars).keys()].map( i =>
-            <Calendar
+          const _calendars = [...Array(calendars).keys()].map( i => {
+            const offset = i - showIndex
+            return <Calendar
               key={i}
-              offset={ i }
+              index={i}
+              offset={ offset }
               link={ linkedCalendars && link }
               calendarEnd = {calendars - 1}
               linkCB={ this.handleLinkChange.bind(this) }
@@ -155,7 +157,7 @@ class DateRange extends Component {
               onlyClasses={ onlyClasses }
               classNames={ classes }
               onChange={ this.handleSelect.bind(this) }  />
-          )
+          })
           return _calendars;
         }()}
       </div>
@@ -170,11 +172,13 @@ DateRange.defaultProps = {
   format          : 'DD/MM/YYYY',
   calendars       : 2,
   onlyClasses     : false,
+  showIndex       : 0,
   classNames      : {}
 }
 
 DateRange.propTypes = {
   pickSingleDate  : PropTypes.bool,
+  showIndex       : PropTypes.number,
   format          : PropTypes.string,
   firstDayOfWeek  : PropTypes.number,
   calendars       : PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

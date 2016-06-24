@@ -38,7 +38,7 @@ class Calendar extends Component {
     const { format, range, theme, offset, firstDayOfWeek, index } = props;
     const date = parseInput(props.date, format)
     const test = (range && range['endDate'] || date)
-    console.log(offset,test)
+
     const state = {
       date,
       index: index,
@@ -94,9 +94,9 @@ class Calendar extends Component {
     const month           = moment.months(shownDate.month());
     const year            = shownDate.year();
     const { styles }      = this;
-    const { onlyClasses, offset, calendarEnd, pickSingleDate } = this.props;
-    const start = offset === 0
-    const end = offset === calendarEnd
+    const { onlyClasses, offset, index, calendarEnd, pickSingleDate } = this.props;
+    const start = index === 0
+    const end = index === calendarEnd
 
     let showStart, showEnd;
 
@@ -245,6 +245,7 @@ Calendar.defaultProps = {
 }
 
 Calendar.propTypes = {
+  index          : PropTypes.number,
   sets           : PropTypes.string,
   range          : PropTypes.shape({
     startDate    : PropTypes.object,
