@@ -138,27 +138,24 @@ class DateRange extends Component {
         )}
 
         {()=>{
-          const _calendars = [];
-          for (var i = Number(calendars) - 1; i >= 0; i--) {
-            _calendars.push(
-              <Calendar
-                key={i}
-                offset={ -i }
-                firstIndex={ calendars - 1 }
-                link={ linkedCalendars && link }
-                linkCB={ this.handleLinkChange.bind(this) }
-                pickSingleDate={ pickSingleDate }
-                range={ range }
-                format={ format }
-                firstDayOfWeek={ firstDayOfWeek }
-                theme={ styles }
-                minDate={ minDate }
-                maxDate={ maxDate }
-		            onlyClasses={ onlyClasses }
-                classNames={ classes }
-                onChange={ this.handleSelect.bind(this) }  />
-            );
-          }
+          const _calendars = [...Array(calendars).keys()].map( i =>
+            <Calendar
+              key={i}
+              offset={ i }
+              link={ linkedCalendars && link }
+              calendarEnd = {calendars - 1}
+              linkCB={ this.handleLinkChange.bind(this) }
+              pickSingleDate={ pickSingleDate }
+              range={ range }
+              format={ format }
+              firstDayOfWeek={ firstDayOfWeek }
+              theme={ styles }
+              minDate={ minDate }
+              maxDate={ maxDate }
+              onlyClasses={ onlyClasses }
+              classNames={ classes }
+              onChange={ this.handleSelect.bind(this) }  />
+          )
           return _calendars;
         }()}
       </div>

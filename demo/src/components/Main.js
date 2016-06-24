@@ -77,7 +77,7 @@ export default class Main extends Component {
 
           <DateRange
             linkedCalendars={ true }
-            calendars={ 3 }
+            calendars={ 2 }
             theme={{
               Calendar:{
                 width:'193px',
