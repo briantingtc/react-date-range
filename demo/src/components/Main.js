@@ -28,7 +28,7 @@ export default class Main extends Component {
   render() {
     const { rangePicker, linked, datePicker, firstDayOfWeek, predefined} = this.state;
     const format = 'dddd, D MMMM YYYY';
-
+    console.log(rangePicker)
     return (
       <main className={styles['Main']}>
 
@@ -51,35 +51,10 @@ export default class Main extends Component {
           <DateRange
             pickSingleDate={ true }
             linkedCalendars={ true }
-            selectYear={ false }
+            selectYear={ true }
+            yearRange= {{start: 130, end: 0}}
             showIndex= { 1 }
             calendars={ 3 }
-            theme={{
-              Calendar:{
-                width:'221px',
-              }
-            }}
-            onInit={ this.handleChange.bind(this, 'rangePicker') }
-            onChange={ this.handleChange.bind(this, 'rangePicker') }
-          />
-        </Section>
-        <Section title='not SINGLE DATE Picker'>
-          <div>
-            <input
-              type='text'
-              readOnly
-              value={ rangePicker['startDate'] && rangePicker['startDate'].format(format).toString() }
-            />
-            <input
-              type='text'
-              readOnly
-              value={ rangePicker['endDate'] && rangePicker['endDate'].format(format).toString() }
-            />
-          </div>
-
-          <DateRange
-            linkedCalendars={ true }
-            calendars={ 2 }
             theme={{
               Calendar:{
                 width:'221px',

@@ -94,10 +94,10 @@ class Calendar extends Component {
     const month           = moment.months(shownDate.month());
     const year            = shownDate.year();
     const { styles }      = this;
-    const { onlyClasses, offset, index, calendarEnd, pickSingleDate, selectYear, changeYear } = this.props;
+    const { onlyClasses, offset, index, calendarEnd, pickSingleDate, changeYear, yearRange } = this.props;
     const start = index === 0
     const end = index === calendarEnd
-
+    console.log(year)
     let showStart, showEnd;
 
     if(pickSingleDate) {
@@ -110,7 +110,8 @@ class Calendar extends Component {
 
     const generateYearRange = ()=>{
       const yearOptions = []
-      for (var i = Number(year) - 10; i <= (year + 10); i++) {
+      const currentYear = parseInt(moment().format('YYYY'))
+      for (var i = currentYear - yearRange.start; i <= (currentYear + yearRange.end); i++) {
         yearOptions.push(<option value={i}>{i}</option>)
       }
       return yearOptions
@@ -129,7 +130,7 @@ class Calendar extends Component {
           <span className={classes.monthAndYearDivider}> - </span>
           <span className={classes.year}>
             {
-              (start && pickSingleDate && selectYear) ? <select onChange={changeYear} value={year}>{generateYearRange()}</select> : year
+              (start && pickSingleDate && yearRange) ? <select onChange={changeYear} value={year}>{generateYearRange()}</select> : year
             }
           </span>
         </span>
@@ -259,6 +260,10 @@ Calendar.defaultProps = {
 Calendar.propTypes = {
   index          : PropTypes.number,
   sets           : PropTypes.string,
+  yearRange      : PropTypes.shape({
+    start        : PropTypes.number,
+    end          : PropTypes.number,
+  }),
   range          : PropTypes.shape({
     startDate    : PropTypes.object,
     endDate      : PropTypes.object
