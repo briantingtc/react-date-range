@@ -126,7 +126,7 @@ class DateRange extends Component {
   }
 
   render() {
-    const { ranges, format, linkedCalendars, style, calendars, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, pickSingleDate, showIndex, yearRange } = this.props;
+    const { ranges, format, linkedCalendars, style, calendars, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, pickSingleDate, showIndex, yearRange, selectYear } = this.props;
     const { range, link } = this.state;
     const { styles } = this;
     const classes = { ...defaultClasses, ...classNames };
@@ -157,6 +157,7 @@ class DateRange extends Component {
               linkCB={ this.handleLinkChange.bind(this) }
               pickSingleDate={ pickSingleDate }
               yearRange = { yearRange }
+              selectYear = { selectYear }
               range={ range }
               format={ format }
               firstDayOfWeek={ firstDayOfWeek }
@@ -177,6 +178,7 @@ class DateRange extends Component {
 DateRange.defaultProps = {
   pickSingleDate  : false,
   linkedCalendars : false,
+  selectYear      : false,
   theme           : {},
   format          : 'DD/MM/YYYY',
   calendars       : 2,
@@ -186,6 +188,7 @@ DateRange.defaultProps = {
 }
 
 DateRange.propTypes = {
+  selectYear      : PropTypes.bool,
   pickSingleDate  : PropTypes.bool,
   showIndex       : PropTypes.number,
   format          : PropTypes.string,

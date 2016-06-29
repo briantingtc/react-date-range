@@ -94,10 +94,10 @@ class Calendar extends Component {
     const month           = moment.months(shownDate.month());
     const year            = shownDate.year();
     const { styles }      = this;
-    const { onlyClasses, offset, index, calendarEnd, pickSingleDate, changeYear, yearRange } = this.props;
+    const { onlyClasses, offset, index, calendarEnd, pickSingleDate, changeYear, yearRange, selectYear } = this.props;
     const start = index === 0
     const end = index === calendarEnd
-    console.log(year)
+
     let showStart, showEnd;
 
     if(pickSingleDate) {
@@ -130,7 +130,7 @@ class Calendar extends Component {
           <span className={classes.monthAndYearDivider}> - </span>
           <span className={classes.year}>
             {
-              (start && pickSingleDate && yearRange) ? <select onChange={changeYear} value={year}>{generateYearRange()}</select> : year
+              (start && pickSingleDate && selectYear) ? <select onChange={changeYear} value={year}>{generateYearRange()}</select> : year
             }
           </span>
         </span>
