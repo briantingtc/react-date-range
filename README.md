@@ -17,39 +17,8 @@ $ npm install --save react-date-range
 ```
 
 ## Usage
-### Date Picker
-```javascript
-import React, { Component } from 'react';
-import { Calendar } from 'react-date-range';
 
-class MyComponent extends Component {
-	handleSelect(date){
-		console.log(date); // Momentjs object
-	}
-
-	render(){
-		return (
-			<div>
-				<Calendar
-					onInit={this.handleSelect}
-					onChange={this.handleSelect}
-				/>
-			</div>
-		)
-	}
-}
-
-```
-
-###### Available Options (props)
-* **date:** *(String, Moment.js object, Function)* - default: today
-* **format:** *(String)* - default: DD/MM/YYY
-* **firstDayOfWeek** *(Number)* - default: [moment.localeData().firstDayOfWeek()](http://momentjs.com/docs/#/i18n/locale-data/)
-* **theme:** *(Object)* see [Demo's source](https://github.com/Adphorus/react-date-range/blob/master/demo/src/components/Main.js#L130)
-* **onInit:** *(Function)* default: none
-* **onChange:** *(Function)* default: none
-
-### Range Picker
+###
 ```javascript
 import React, { Component } from 'react';
 import { DateRange } from 'react-date-range';
@@ -85,3 +54,11 @@ class MyComponent extends Component {
 * **linkedCalendars:** *(Boolean)* default: false
 * **calendars:** *(Number)* default: 2
 * **ranges:** *(Object)* default: none
+* **selectYear** *(Boolean)* default: false  
+Activates select year dropdown.
+* **yearRange** *(Object)* default: ```{start: 10, end: 10}```
+Specifies the year range of the options in selectYear dropdown.
+* **pickSingleDate** *(Boolean)*  
+Calendar only picks a single date.
+* **showIndex** *(Number)*  
+Specifies the calendar where the date will be shown if there are multiple calendars.

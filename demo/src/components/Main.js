@@ -28,7 +28,7 @@ export default class Main extends Component {
   render() {
     const { rangePicker, linked, datePicker, firstDayOfWeek, predefined} = this.state;
     const format = 'dddd, D MMMM YYYY';
-    console.log(rangePicker)
+
     return (
       <main className={styles['Main']}>
 

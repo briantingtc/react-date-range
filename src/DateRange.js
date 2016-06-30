@@ -180,6 +180,7 @@ DateRange.defaultProps = {
   linkedCalendars : false,
   selectYear      : false,
   theme           : {},
+  yearRange       : {start: 10, end:10},
   format          : 'DD/MM/YYYY',
   calendars       : 2,
   onlyClasses     : false,
@@ -191,6 +192,10 @@ DateRange.propTypes = {
   selectYear      : PropTypes.bool,
   pickSingleDate  : PropTypes.bool,
   showIndex       : PropTypes.number,
+  yearRange      : PropTypes.shape({
+    start        : PropTypes.number,
+    end          : PropTypes.number,
+  }),
   format          : PropTypes.string,
   firstDayOfWeek  : PropTypes.number,
   calendars       : PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
